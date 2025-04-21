@@ -1,0 +1,20 @@
+/* Slideshow */
+.aboutcol1of5{
+    padding: 10px;
+}
+
+.aboutcol1of5 img{
+    width: 200px;
+    height: 250px;
+}
+
+/* Large Resolutions */
+@media only screen and (min-width: 768px) {
+    .flex-container{
+        display: flex;
+    }
+
+    .aboutcol1of5{
+        flex: 1;
+    }
+}

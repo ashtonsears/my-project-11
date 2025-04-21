@@ -1,0 +1,52 @@
+.aboutcol1of2{
+    padding: 10px;
+  }
+  
+.aboutcol1of2 img{
+    width: 100%;
+    height: auto;
+    max-width: 1110px;
+  }
+
+  /* Form */
+#symptom_form{
+  background-color: #B3CDE0;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+#symptom_text{
+  padding: 10px;
+}
+
+.slide_container{
+  width: 70%;
+}
+
+  /* Slideshow */
+.slideshow{
+    text-align: center;
+  }
+  
+  .about_prev, .about_next{
+    font-size: 36px;
+    margin-top: 70px;
+    color: #6497B1;
+  }
+
+  @media only screen and (min-width: 768px) {
+    .flex-container{
+      display: flex;
+  }
+  
+    .aboutcol1of2{
+      flex: 1;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+
+    .about_next, .about_prev{
+      display: none;
+    }
+  }

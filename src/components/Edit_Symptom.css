@@ -1,0 +1,82 @@
+/* Form */
+#dialog-close{
+    color:#ECEEEB;
+    font-size: 24px;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+
+.w3-modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    box-shadow: 0 0 0 100vw rgba(0, 0, 0, 0.7);
+    height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #B3CDE0;
+}
+
+.w3-modal-content {
+  width: 800px;
+  max-width: 90%;
+}
+
+#edit-symptom-form{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px;
+    background-color: #B3CDE0;
+  }
+  
+  form input, form textarea, form select{
+    margin-bottom: 12px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #011F4B;
+  }
+  
+  form textarea{
+    height: 200px;
+    resize: vertical;
+  }
+  
+  #result{
+    font-weight: bold;
+    text-align: center;
+    padding-top: 10px;
+  }
+  
+  label{
+    font-size: 18px;
+    padding-bottom : 5px;
+    color: #011F4B;
+    font-weight: bold;
+  }
+  
+  #submit{
+    background-color: #011F4B;
+    color: #ECEEEB;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  @media only screen and (min-width: 768px) {
+    .flex-container{
+      display: flex;
+  
+    }
+  }

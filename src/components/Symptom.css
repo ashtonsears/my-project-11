@@ -1,0 +1,48 @@
+.symptom { 
+    background-color: #011F4B;
+    color: #ECEEEB;
+    padding: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 20px;
+}
+
+/* New Flex header for title + buttons */
+.symptom-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.symptom-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.symptom a {
+    background-color: #6497B1;
+    color: #ECEEEB;
+    font-size: 12px;
+    text-align: center;
+    text-decoration: none;
+    padding: 8px;
+}
+
+.header-title {
+    font-size: 24px;
+    color: #B3CDE0;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+/* Large Resolutions */
+@media only screen and (min-width: 768px) {
+    .flex-container {
+        display: flex;
+    }
+
+    .symptom-title {
+        flex: 1;
+    }
+}

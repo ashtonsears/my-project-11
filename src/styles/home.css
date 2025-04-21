@@ -1,0 +1,17 @@
+/* Slideshow */
+.slideshow{
+    text-align: center;
+  }
+  
+  .about_prev, .about_next{
+    font-size: 36px;
+    margin-top: 70px;
+    color: #6497B1;
+  }
+
+@media only screen and (max-width: 767px) {
+
+    .about_next, .about_prev{
+      display: none;
+    }
+  }
