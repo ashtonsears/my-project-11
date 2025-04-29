@@ -1,20 +1,22 @@
 {
   "files": {
-    "main.css": "/my-project-11/static/css/main.53f3ece4.css",
-    "main.js": "/my-project-11/static/js/main.a449b8a2.js",
+    "main.css": "/my-project-11/static/css/main.0d09c4a8.css",
+    "main.js": "/my-project-11/static/js/main.2016414b.js",
     "static/media/programmer_team_img.jpg": "/my-project-11/static/media/programmer_team_img.5de22e826ae0185852e7.jpg",
     "static/media/doctor_team_img.jpeg": "/my-project-11/static/media/doctor_team_img.20283584aaf790a601fa.jpeg",
     "static/media/nurse_team_img.jpg": "/my-project-11/static/media/nurse_team_img.26a29a82b6af1eaf0b26.jpg",
     "static/media/our_mission_img.jpg": "/my-project-11/static/media/our_mission_img.592d35e66c84488869bd.jpg",
-    "static/media/sample_chart_img.png": "/my-project-11/static/media/sample_chart_img.5996bb18f6a2c63a1d41.png",
     "static/media/hourglass_img.svg": "/my-project-11/static/media/hourglass_img.98d4f5bf73f99d0f64e8871c6e0750cf.svg",
+    "static/media/clock_img.svg": "/my-project-11/static/media/clock_img.de7e2ab33da79fa1ad943e231c551fc3.svg",
     "static/media/beer_img.svg": "/my-project-11/static/media/beer_img.ade9bce7f6dde78daac40e07295edaf0.svg",
+    "static/media/phone_img.svg": "/my-project-11/static/media/phone_img.4c0da617d304f52234470a7a7e7dd3dc.svg",
+    "static/media/coffee_img.svg": "/my-project-11/static/media/coffee_img.b63db7fc93e99a3eade3509c8260b7a1.svg",
     "index.html": "/my-project-11/index.html",
-    "main.53f3ece4.css.map": "/my-project-11/static/css/main.53f3ece4.css.map",
-    "main.a449b8a2.js.map": "/my-project-11/static/js/main.a449b8a2.js.map"
+    "main.0d09c4a8.css.map": "/my-project-11/static/css/main.0d09c4a8.css.map",
+    "main.2016414b.js.map": "/my-project-11/static/js/main.2016414b.js.map"
   },
   "entrypoints": [
-    "static/css/main.53f3ece4.css",
-    "static/js/main.a449b8a2.js"
+    "static/css/main.0d09c4a8.css",
+    "static/js/main.2016414b.js"
   ]
 }
