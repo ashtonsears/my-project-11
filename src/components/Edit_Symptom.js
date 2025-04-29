@@ -9,7 +9,8 @@ const EditSymptom = (props) => {
         severity: props.severity,
         date: props.date,
         time: props.time,
-        notes: props.notes
+        notes: props.notes,
+        prev_img: props.image,
     });
 
     const handleChange = (event) => {
@@ -18,47 +19,23 @@ const EditSymptom = (props) => {
         setInputs((values) => ({ ...values, [name]: value }));
     };
 
-    const [result, setResult] = useState("");
+    const handleImageChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.files[0];
+        setInputs((values) => ({ ...values, [name]: value }));
+    };
 
-    const formatTimeto12Hour = (time) => {
-        let [hours, minutes] = time.split(":");
-        let period = "AM";
-  
-        if (parseInt(hours) >= 12) {
-          period = "PM";
-          if (parseInt(hours) > 12) {
-            hours -= 12;
-          }
-        } else if (hours === "00") {
-          hours = "12";
-        }
-        minutes = minutes.padStart(2, "0"); // Ensure minutes are always two digits
-        return `${hours}:${minutes} ${period}`;
-      }
+    const [result, setResult] = useState("");
 
     const onSubmit = async (event) => {
         event.preventDefault();
         setResult("Sending...");
 
-        const formattedTime = formatTimeto12Hour(inputs.time);
-
-        const symptomData = {
-            symptom: inputs.symptom,
-            duration: Number(inputs.duration),
-            severity: Number(inputs.severity),
-            date: inputs.date,
-            time: formattedTime,
-            notes: inputs.notes || "",
-        }
-
-        console.log("Symptom Data:", symptomData);
+        const formData = new FormData(event.target);
 
         const response = await fetch("https://sleep-tracker-server.onrender.com/api/sleep_symptoms", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-            body: JSON.stringify(symptomData)
+          method: "PUT",
+            body: formData,
         });
 
         if (response.status === 200) {
@@ -125,6 +102,9 @@ const EditSymptom = (props) => {
 
                     <label htmlFor="notes">Notes:</label>
                     <textarea id="notes" name="notes" placeholder="Write your notes here" value={inputs.notes || ""} onChange={handleChange}></textarea>
+
+                    <label htmlFor="img" >Upload Image:</label>
+          <input type="file" id="img" name="img" accept="image/*" onChange={handleImageChange}/>
 
                     <button id="submit" type="submit">Submit</button>
                     <div id="result">{result}</div>

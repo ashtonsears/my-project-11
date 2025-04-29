@@ -42,7 +42,7 @@
         display: flex;
     }
 
-    .symptom-title {
+    .symptom-title, .symptom-col1of2 {
         flex: 1;
     }
 }

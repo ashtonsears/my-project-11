@@ -30,9 +30,6 @@ const AboutUs = () => {
             </div>
             <h2 className="our_team">Our Team</h2>
             <div className="slideshow flex-container">
-                <section class="aboutcol1of5 about_prev">
-                    <p>&#10094;</p>
-                </section>
                 <Slideshow name="Nurse"
                 description="Nurse Fakeperson is a registered sleep technician in addition to being a registered nurse (RN). She contributed her knowledge to this website alongside Dr. Notreal."
                 image={nurse}/>
@@ -42,9 +39,6 @@ const AboutUs = () => {
                 <Slideshow name="Doctor"
                 description="Dr. Notreal is a board certified sleep medicine physician who came up with the idea for the Sleep Symptom Tracker. He provided the information for this website alongside Nurse Fakeperson."
                 image={doctor}/>
-                <section class="aboutcol1of5 about_next">
-                    <p>&#10095;</p>
-                </section>
             </div>
             <h2>Contact Us</h2>
             <div id="symptom_form">

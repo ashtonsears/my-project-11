@@ -4,19 +4,19 @@ import React, { useState } from "react";
 const DeleteSymptom = (props) => {
     const [result, setResult] = useState("");
 
-    const deleteSymptom = async () => {
+    const deleteSymptom = async (event) => {
         const response = await fetch(`https://sleep-tracker-server.onrender.com/api/sleep_symptoms/${props._id}`, {
             method:"DELETE"
         });
 
         if (response.status === 200) {
             setResult("Symptom Deleted Successfully");
-            props.closeDeleteDialog();
             props.hideSymptom();
         } else {
             console.log("Error deleting symptom", response);
             setResult("Error deleting symptom");
         }
+        props.closeDeleteDialog();
     };
 
     return (

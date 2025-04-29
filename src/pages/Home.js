@@ -28,9 +28,6 @@ const Home = () => {
             </p>
             <h3>Sleep Fast Facts</h3>
             <div className="slideshow flex-container">
-                <section class="aboutcol1of5 about_prev">
-                    <p>&#10094;</p>
-                </section>
                 <Slideshow name="Hourglass"
                 description="Long-term poor sleep can reduce lifespan by 4.7 years for women and 2.4 years for men."
                 image={hourglass}/>
@@ -40,9 +37,9 @@ const Home = () => {
                 <Slideshow name="Sleeping and Driving"
                 description="Being awake for 24 hours straight has the same effect as having a BAC of 0.10% (the legal limit is .08%)."
                 image={beer}/>
-                <section class="aboutcol1of5 about_next">
-                    <p>&#10095;</p>
-                </section>
+            </div>
+            <div id="video">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/GgtLqMxaOww?si=xkKLLLCTE-vaujUA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
         </main>
     );

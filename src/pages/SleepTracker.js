@@ -4,11 +4,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const SleepTracker = () => {
+    const [symptoms, setSymptoms] = useState([]);
+
     const addSymptom = (symptom) => {
         setSymptoms(symptoms => [...symptoms, symptom]);
     };
-
-    const [symptoms, setSymptoms] = useState([]);
 
     useEffect(() => {
         (async () => {

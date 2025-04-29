@@ -11,45 +11,51 @@ const SymptomForm = (props) => {
         setInputs((values) => ({ ...values, [name]: value }));
     }
 
-    const formatTimeto12Hour = (time) => {
-      let [hours, minutes] = time.split(":");
-      let period = "AM";
-
-      if (parseInt(hours) >= 12) {
-        period = "PM";
-        if (parseInt(hours) > 12) {
-          hours -= 12;
-        }
-      } else if (hours === "00") {
-        hours = "12";
-      }
-      minutes = minutes.padStart(2, "0"); // Ensure minutes are always two digits
-      return `${hours}:${minutes} ${period}`;
+    const handleImageChange = (event) => {
+      const name = event.target.name;
+      const value = event.target.files[0];
+      setInputs((values) => ({ ...values, [name]: value }));
     }
+
+    const formatDate = (date) => {
+      const [year, month, day] = date.split("-");
+      return `${month}/${day}/${year}`; //Reformatting
+  };
+
+    const convertTo12HourFormat = (time) => {
+      const [hour, minute] = time.split(":");
+      let period = "AM";
+      let newHour = parseInt(hour);
+  
+      if (newHour >= 12) {
+          period = "PM";
+          if (newHour > 12) newHour -= 12;
+      } else if (newHour === 0) {
+          newHour = 12; //Midnight
+      }
+  
+      return `${newHour}:${minute} ${period}`;
+  };
 
     const onSubmit = async (event) => {
         event.preventDefault();
         setResult("Sending...");
 
-        const formattedTime = formatTimeto12Hour(inputs.time);
+        const formattedDate = formatDate(inputs.date);
+        const formattedTime = convertTo12HourFormat(inputs.time);
 
-        const symptomData = {
-            symptom: inputs.symptom,
-            duration: Number(inputs.duration),
-            severity: Number(inputs.severity),
-            date: inputs.date,
-            time: formattedTime,
-            notes: inputs.notes || "",
+        const formData = new FormData(event.target);
+
+        formData.set("date", formattedDate);
+        formData.set("time", formattedTime);
+
+        for (let pair of formData.entries()) {
+          console.log(`${pair[0]}: ${pair[1]}`);
         }
-
-        console.log("Symptom Data:", symptomData);
 
         const response = await fetch("https://sleep-tracker-server.onrender.com/api/sleep_symptoms", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-            body: JSON.stringify(symptomData)
+          body: formData,
         });
     
         if (response.status === 200) {
@@ -105,6 +111,9 @@ const SymptomForm = (props) => {
 
           <label htmlFor="notes">Notes:</label>
           <textarea id="notes" name="notes" placeholder="Write your notes here" value={inputs.notes || ""} onChange={handleChange}></textarea>
+
+          <label htmlFor="img" >Upload Image:</label>
+          <input type="file" id="img" name="img" onChange={handleImageChange} accept="images/*"/>
 
           <button id="submit" type="submit">Submit</button>
           <div id="result">{result}</div>
