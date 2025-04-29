@@ -23,32 +23,60 @@ const EditSymptom = (props) => {
         const name = event.target.name;
         const value = event.target.files[0];
         setInputs((values) => ({ ...values, [name]: value }));
+      }
+  
+      const formatDate = (date) => {
+        const [year, month, day] = date.split("-");
+        return `${month}/${day}/${year}`; //Reformatting
+    };
+  
+      const convertTo12HourFormat = (time) => {
+        const [hour, minute] = time.split(":");
+        let period = "AM";
+        let newHour = parseInt(hour);
+    
+        if (newHour >= 12) {
+            period = "PM";
+            if (newHour > 12) newHour -= 12;
+        } else if (newHour === 0) {
+            newHour = 12; //Midnight
+        }
+    
+        return `${newHour}:${minute} ${period}`;
     };
 
     const [result, setResult] = useState("");
-
-    const onSubmit = async (event) => {
-        event.preventDefault();
-        setResult("Sending...");
-
-        const formData = new FormData(event.target);
-
-        const response = await fetch("https://sleep-tracker-server.onrender.com/api/sleep_symptoms", {
-          method: "PUT",
+  
+      const onSubmit = async (event) => {
+          event.preventDefault();
+          setResult("Sending...");
+  
+          const formattedDate = formatDate(inputs.date);
+          const formattedTime = convertTo12HourFormat(inputs.time);
+  
+          const formData = new FormData(event.target);
+  
+          formData.set("date", formattedDate);
+          formData.set("time", formattedTime);
+  
+          for (let pair of formData.entries()) {
+            console.log(`${pair[0]}: ${pair[1]}`);
+          }
+  
+          const response = await fetch(`https://sleep-tracker-server.onrender.com/api/sleep_symptoms/${props._id}`, {
+            method: "PUT",
             body: formData,
-        });
-
-        if (response.status === 200) {
-            setResult("Symptom Edited Successfully");
+          });
+      
+          if (response.status === 200) {
+            setResult("Symptom Successfully Updated");
             event.target.reset();
-            props.closeEditDialog();
             props.editSymptom(await response.json());
-        }
-        else {
+          } else {
             console.log("Error editing symptom", response);
-            setResult("Error editing symptom");
-        }
-    };
+            setResult(response.message);
+          }
+      };
 
     return (
         <div id="edit-dialog" className="w3-modal">

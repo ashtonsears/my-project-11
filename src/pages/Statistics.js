@@ -1,93 +1,114 @@
-import chart from '../images/sample_chart_img.png';
-import '../styles/statistics.css';
-import Symptom from '../components/Symptom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import Symptom from '../components/Symptom';
+import Slideshow from '../components/Slideshow';
+import clock from "../images/clock_img.svg";
+import coffee from "../images/coffee_img.svg";
+import phone from "../images/phone_img.svg";
+import '../styles/statistics.css';
 
 const Statistics = () => {
-    const [symptoms, setSymptoms] = useState([]);
-    const filteredSymptoms = symptoms.filter(symptom => symptom.symptom !== "Symptom Name");
+  const [symptoms, setSymptoms] = useState([]);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
 
-    useEffect(() => {
-        (async () => {
-            const response = await axios.get("https://sleep-tracker-server.onrender.com/api/sleep_symptoms");
-            setSymptoms(response.data);
-        })();
-    }, []);
+  useEffect(() => {
+    (async () => {
+      const response = await axios.get("https://sleep-tracker-server.onrender.com/api/sleep_symptoms");
+      setSymptoms(response.data);
+    })();
+  }, []);
 
-    return (
-        <main>
-        <h2 id="stats_title">Your Sleep Statistics...</h2>
-        <div id="calendar">
-            <div class="month">
-                <ul>
-                    <li class="prev">&#10094;</li>
-                    <li class="next">&#10095;</li>
-                    <li><strong>February</strong></li>
-                    <li>2025</li>
-                </ul>
-            </div>
-        <ul class="weekdays">
-            <li>Sun</li>
-            <li>Mon</li>
-            <li>Tues</li>
-            <li>Wed</li>
-            <li>Thurs</li>
-            <li>Fri</li>
-            <li>Sat</li>
-        </ul>
-        <ul class="days">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
-            <li>7</li>
-            <li>8</li>
-            <li>9</li>
-            <li>10</li>
-            <li>11</li>
-            <li>12</li>
-            <li>13</li>
-            <li>14</li>
-            <li>15</li>
-            <li class="active">16</li>
-            <li>17</li>
-            <li>18</li>
-            <li>19</li>
-            <li>20</li>
-            <li>21</li>
-            <li>22</li>
-            <li>23</li>
-            <li>24</li>
-            <li>25</li>
-            <li>26</li>
-            <li>27</li>
-            <li>28</li>
-        </ul>
-    </div>
-    <h2 id="symptom_title">View Your Symptoms</h2>
-        <div id="symptom_container">
-            {filteredSymptoms.map((symptom) => (
-                <Symptom
-                _id={symptom._id}
-                symptom={symptom.symptom}
-                duration={symptom.duration}
-                severity={symptom.severity}
-                date={symptom.date}
-                time={symptom.time}
-                notes={symptom.notes}
-                />
-            ))}
-        </div>
-    <h3>Average Daily Sleep for <span id="js_month">February</span></h3>
-    <div class="chart">
-        <img id="sample_chart" width="700" height="400" src={chart} alt="Sample Chart of Average Daily Sleep"/>
-    </div>
-    </main>
-    );
+  const filteredSymptoms = symptoms.filter(symptom => {
+    if (!selectedDate) return false;
+    const symptomDate = new Date(symptom.date).toDateString();
+    return symptomDate === selectedDate.toDateString();
+  });
+
+  const getDaysInMonth = (year, month) => {
+    return new Date(year, month + 1, 0).getDate();
   };
-  
-  export default Statistics;
+
+  const generateCalendarDays = () => {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const firstDay = new Date(year, month, 1).getDay();
+    const totalDays = getDaysInMonth(year, month);
+
+    const days = [];
+    for (let i = 0; i < firstDay; i++) {
+      days.push(<li key={`empty-${i}`} className="empty"></li>);
+    }
+
+    for (let d = 1; d <= totalDays; d++) {
+      const dateObj = new Date(year, month, d);
+      days.push(
+        <li
+          key={d}
+          className={selectedDate?.toDateString() === dateObj.toDateString() ? "active" : ""}
+          onClick={() => setSelectedDate(dateObj)}
+        >
+          {d}
+        </li>
+      );
+    }
+
+    return days;
+  };
+
+  const changeMonth = (direction) => {
+    const newDate = new Date(currentDate);
+    newDate.setMonth(currentDate.getMonth() + direction);
+    setCurrentDate(newDate);
+    setSelectedDate(null);
+  };
+
+  const monthName = currentDate.toLocaleString('default', { month: 'long' });
+
+  return (
+    <main>
+      <h2 id="stats_title">Your Sleep Statistics...</h2>
+      <div id="calendar">
+        <div className="month">
+          <ul>
+            <li className="prev clicky" onClick={() => changeMonth(-1)}>&#10094;</li>
+            <li className="next clicky" onClick={() => changeMonth(1)}>&#10095;</li>
+            <li><strong>{monthName}</strong></li>
+            <li>{currentDate.getFullYear()}</li>
+          </ul>
+        </div>
+        <ul className="weekdays">
+          <li>Sun</li><li>Mon</li><li>Tues</li><li>Wed</li><li>Thurs</li><li>Fri</li><li>Sat</li>
+        </ul>
+        <ul className="days">
+          {generateCalendarDays()}
+        </ul>
+      </div>
+
+      <h2 className="symptom_title">View Your Symptoms</h2>
+      <div id="symptom_container">
+        {filteredSymptoms.length > 0 ? (
+          filteredSymptoms.map(symptom => (
+            <Symptom key={symptom._id} {...symptom} />
+          ))
+        ) : (
+          <p className="symptom_title">No symptoms for this day.</p>
+        )}
+      </div>
+      <h3>Sleep Hygiene Tips</h3>
+            <div className="slideshow flex-container">
+                <Slideshow name="Phone"
+                description="Turn off electronic devices at least 30 minutes before bed."
+                image={phone}/>
+                <Slideshow name="Coffee and Alcohol"
+                description="Avoid caffeine and alcohol before bed."
+                image={coffee}/>
+                <Slideshow name="Sleeping Schedule"
+                description="Go to bed and get up at the same times every day."
+                image={clock}/>
+            </div>
+    </main>
+  );
+};
+
+export default Statistics;

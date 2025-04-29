@@ -9,8 +9,6 @@ const Symptom = (props) => {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showSymptom, setShowSymptom] = useState(true);
 
-  const imageSrc = `https://sleep-tracker-server.onrender.com/api/sleep_symptoms/${symptom.image}`;
-
   const openEditDialog = () => {
     setShowEditDialog(true);
   };
@@ -78,8 +76,8 @@ const Symptom = (props) => {
                 </div>
               </div>
               <div className="flex-container">
-                <section className="symptom-col1of2, symptom-img">
-                  <img src={imageSrc} alt={symptom.symptom} />
+                <section className="symptom-col1of2">
+                  <img className="symptom-img" src={`https://sleep-tracker-server.onrender.com/images/${symptom.img}`} alt={symptom.symptom} />
                 </section>
                 <section className="symptom-col1of2">
                         <h5><strong>Symptom: </strong>{symptom.symptom}</h5>

@@ -33,8 +33,8 @@ const DeleteSymptom = (props) => {
                     <div id="delete-content">
                         <h2>Are you sure you want to delete this symptom?</h2>
                         <section>
-                            <button className="delete-buttons" onClick = {props.closeDeleteDialog}>No</button>
-                            <button className="delete-buttons" onClick={deleteSymptom}>Yes</button>
+                            <button className="delete-buttons" onClick = {deleteSymptom}>Yes</button>
+                            <button className="delete-buttons" onClick={props.closeDeleteDialog}>No</button>
                         </section>
                         <span>{result}</span>
                     </div>

@@ -1,6 +1,6 @@
 /* Calendar */
 /* Adapted from https://www.w3schools.com/howto/howto_css_calendar.asp */
-#stats_title, #symptom_title{
+#stats_title, .symptom_title{
     margin-left: 5%;
   }
   
@@ -74,14 +74,11 @@
     margin-left: 5%;
   }
 
-  /* Chart */
-.chart{
+/* Slideshow */
+.slideshow{
   text-align: center;
-  padding:5px;
 }
 
-#sample_chart{
-  max-width: 700px;
-  width: 100%;
-  height: auto;
+.clicky{
+  cursor: pointer;
 }
